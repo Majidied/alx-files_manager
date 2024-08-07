@@ -1,5 +1,7 @@
 import express from 'express';
 import AppController from '../controllers/AppController';
+import UsersController from '../controllers/UsersController';
+
 
 /**
  * Sets up the routing for the controllers in the application.
@@ -17,8 +19,8 @@ function controllerRouting(app) {
     AppController.getStats(_req, res);
   });
 
-  router.post('/users', (req, res) => {
-    AppController.postNew(_req, res);
+  router.post('/users', (_req, res) => {
+    UsersController.postNew(_req, res);
   });
 }
 
