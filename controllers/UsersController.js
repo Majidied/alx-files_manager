@@ -1,7 +1,17 @@
 import SHA1 from 'sha1';
 import dbClient from '../utils/db';
 
+/**
+ * Controller class for handling user-related operations.
+ */
 class UsersController {
+/**
+ * Create a new user.
+ *
+ * @param {Object} request - The request object.
+ * @param {Object} response - The response object.
+ * @returns {Object} The response object containing the user's information.
+ */
   static async postNew(request, response) {
     const { email, password } = request.body;
 

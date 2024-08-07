@@ -1,6 +1,9 @@
 import redisClient from '../utils/redis';
 import dbClient from '../utils/db';
 
+/**
+ * Controller class for handling application-related requests.
+ */
 class AppController {
   /**
    * should return if Redis is alive and if the DB is alive too
