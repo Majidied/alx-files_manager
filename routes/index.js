@@ -1,7 +1,7 @@
 import express from 'express';
 import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
-
+import AuthController from '../controllers/AuthController';
 
 /**
  * Sets up the routing for the controllers in the application.
@@ -21,6 +21,18 @@ function controllerRouting(app) {
 
   router.post('/users', (_req, res) => {
     UsersController.postNew(_req, res);
+  });
+
+  router.get('/connect', (_req, res) => {
+    AuthController.getConnect(_req, res);
+  });
+
+  router.get('/disconnect', (_req, res) => {
+    AuthController.getDisconnect(_req, res);
+  });
+
+  router.get('/users/me', (_req, res) => {
+    UsersController.getMe(_req, res);
   });
 }
 
