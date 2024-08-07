@@ -39,6 +39,22 @@ function controllerRouting(app) {
   router.post('/files', (_req, res) => {
     FilesController.postUpload(_req, res);
   });
+
+  router.get('/files/:id', (_req, res) => {
+    FilesController.getShow(_req, res);
+  });
+
+  router.get('/files', (_req, res) => {
+    FilesController.getIndex(_req, res);
+  });
+
+  router.put('/files/:id/publish', (_req, res) => {
+    FilesController.putPublish(_req, res);
+  });
+
+  router.put('/files/:id/unpublish', (_req, res) => {
+    FilesController.putUnpublish(_req, res);
+  });
 }
 
 export default controllerRouting;
