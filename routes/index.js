@@ -10,11 +10,15 @@ function controllerRouting(app) {
   app.use('/', router);
 
   router.get('/status', (_req, res) => {
-    res.status(200).json(AppController.getStatus());
+    AppController.getStatus(_req, res);
   });
 
   router.get('/stats', (_req, res) => {
-    res.status(200).json(AppController.getStats());
+    AppController.getStats(_req, res);
+  });
+
+  router.post('/users', (req, res) => {
+    AppController.postNew(_req, res);
   });
 }
 
