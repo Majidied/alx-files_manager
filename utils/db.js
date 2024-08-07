@@ -1,46 +1,55 @@
 import { MongoClient } from 'mongodb';
 
+const DB_HOST = process.env.DB_HOST || 'localhost';
+const DB_PORT = process.env.DB_PORT || 27017;
+const DB_DATABASE = process.env.DB_DATABASE || 'files_manager';
+const url = `mongodb://${DB_HOST}:${DB_PORT}`;
+
 /**
- * Represents a database client for interacting with MongoDB.
+ * Class for performing operations with Mongo service
  */
 class DBClient {
   constructor() {
-    const url = `mongodb://${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || 27017}/`;
-    this.client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
-    this.client.connect()
-      .then(() => {
-        this.db = this.client.db(process.env.DB_DATABASE || 'files_manager');
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+      if (!err) {
+        // console.log('Connected successfully to server');
+        this.db = client.db(DB_DATABASE);
+        this.usersCollection = this.db.collection('users');
+        this.filesCollection = this.db.collection('files');
+      } else {
+        console.log(err.message);
+        this.db = false;
+      }
+    });
   }
 
   /**
-     * Checks if the database client is alive.
-     * @returns {boolean} True if the client is alive, false otherwise.
-     */
+   * Checks if connection to Redis is Alive
+   * @return {boolean} true if connection alive or false if not
+   */
   isAlive() {
-    return !!this.client;
+    return Boolean(this.db);
   }
 
   /**
-     * Retrieves the number of users in the database.
-     * @returns {Promise<number>} A promise that resolves to the number of users.
-     */
+   * Returns the number of documents in the collection users
+   * @return {number} amount of users
+   */
   async nbUsers() {
-    return this.db.collection('users').countDocuments();
+    const numberOfUsers = this.usersCollection.countDocuments();
+    return numberOfUsers;
   }
 
   /**
-     * Retrieves the number of files in the database.
-     * @returns {Promise<number>} A promise that resolves to the number of files.
-     */
+   * Returns the number of documents in the collection files
+   * @return {number} amount of files
+   */
   async nbFiles() {
-    return this.db.collection('files').countDocuments();
+    const numberOfFiles = this.filesCollection.countDocuments();
+    return numberOfFiles;
   }
 }
 
 const dbClient = new DBClient();
+
 export default dbClient;
