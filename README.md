@@ -15,7 +15,7 @@ The `alx-files_manager` project is a Node.js and Express.js based file managemen
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/alx-files_manager.git
+   git clone https://github.com/majidied/alx-files_manager.git
    ```
 
 2. Navigate to the project directory:

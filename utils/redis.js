@@ -1,4 +1,4 @@
-import createClient from 'redis/lib/createClient';
+import { createClient } from 'redis';
 import { promisify } from 'util';
 
 /**
@@ -6,8 +6,9 @@ import { promisify } from 'util';
  */
 class RedisClient {
   constructor() {
-    this.client = createClient().on('error', (error) => {
-      console.log(error.message);
+    this.client = createClient();
+    this.client.on('error', (err) => {
+      console.log(`Redis client not connected to the server: ${err}`);
     });
   }
 
@@ -56,4 +57,5 @@ class RedisClient {
   }
 }
 
-module.exports.redisClient = new RedisClient();
+const redisClient = new RedisClient();
+export default redisClient;
