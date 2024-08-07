@@ -10,11 +10,11 @@ function controllerRouting(app) {
   app.use('/', router);
 
   router.get('/status', (_req, res) => {
-    res.status(200).send(AppController.getStatus());
+    res.status(200).json(AppController.getStatus());
   });
 
   router.get('/stats', (_req, res) => {
-    res.status(200).send(AppController.getStats());
+    res.status(200).json(AppController.getStats());
   });
 }
 
